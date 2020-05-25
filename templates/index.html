@@ -1,0 +1,86 @@
+{% extends "layout.html"%}
+{% block content %}
+<div class="col-md-11 col-center-block offset-md-4 my-auto">
+    <div class="card">
+        <div class="card-header">
+            <form action="/create-task" method="POST">
+                {{form.csrf_token}}
+                <div class="row">
+                    <div class="col">
+                        {{form.largo(class_= 'form-control', placeholder = 'Largo', autofocus=true)}}
+                    </div>
+                    <div class="col">
+                        {{form.diametro(class_= 'form-control', placeholder = 'Diametro', autofocus=true)}}
+                    </div>
+                    <div class="col">
+                        {{form.cantidad(class_= 'form-control', placeholder = 'Cantidad', autofocus=true)}}
+                    </div>
+                    <div class="col">
+                        {{form.proyecto(class_= 'form-control', placeholder = 'Proyecto', autofocus=true)}}
+                    </div>
+                    <div class="col">
+                        {{form.etiqueta(class_= 'form-control', placeholder = 'Etiqueta', autofocus=true)}}
+                    </div>
+                    <div class="col">
+                        {{form.fecha(class_= 'form-control', placeholder = 'Fecha', autofocus=true)}}
+                    </div>
+                </div>
+
+                {{form.submit(class="btn btn-primary btn-block mt-1")}}      
+            </form>
+        </div>
+        <div class="card text-center">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for err in messages[0].split("]")[:-1] %}
+                            <a >{{ err[1:].replace("[", " ") }}</a>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+        </div>
+        
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Largo</th>
+                    <th scope="col">Diametro</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Proyecto</th>
+                    <th scope="col">Etiqueta</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Opciones</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{task.id}}</td>
+                        <td>{{task.largo}}</td>
+                        <td>{{task.diametro}}</td>
+                        <td>{{task.cantidad}}</td>
+                        <td>{{task.proyecto}}</td>
+                        <td>{{task.etiqueta}}</td>
+                        <td>{{task.fecha}}</td>
+                        <td>
+                            <a href="/done/{{task.id}}" class="btn btn-success btn-sm ">{% if task.done %} No {% else %} Do {% endif %}</a>
+                            <a href="/delete/{{task.id}}" class="btn btn-danger btn-sm ">De</a>
+                        </td>
+                    </tr> 
+                    {% endfor %}                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col-md-0.5">
+    <form action="/filter">
+        <button type="submit" class="btn btn-primary btn-block mt-1">
+            Filtar
+        </button>                
+    </form>  
+</div>
+{% endblock %}
+

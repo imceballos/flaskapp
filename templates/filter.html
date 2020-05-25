@@ -1,0 +1,31 @@
+{% extends "layout.html"%}
+{% block content %}
+<div class="col-md-8 col-center-block offset-md-4 my-auto">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in filter %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{task.fecha}}</td>
+                        <td>
+                            <a href="filter/view/{{task.fecha}}" class="btn btn-success btn-sm ">Details</a>
+                            <a href="deletef/{{task.fecha}}" class="btn btn-danger btn-sm ">Del</a>
+                        </td>
+                    </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

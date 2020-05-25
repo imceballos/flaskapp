@@ -1,0 +1,40 @@
+{% extends "layout.html"%}
+{% block content %}
+<div class="col-md-11 col-center-block offset-md-4 my-auto">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Largo</th>
+                        <th scope="col">Diametro</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Proyecto</th>
+                        <th scope="col">Etiqueta</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sel in selected %}
+                    <tr>
+                        <td>{{sel.id}}</td>
+                        <td>{{sel.largo}}</td>
+                        <td>{{sel.diametro}}</td>
+                        <td>{{sel.cantidad}}</td>
+                        <td>{{sel.proyecto}}</td>
+                        <td>{{sel.etiqueta}}</td>
+                        <td>{{sel.fecha}}</td>
+                        <td>
+                            <a href="/donenew/{{sel.fecha}}/{{sel.proyecto}}/{{sel.diametro}}/{{sel.id}}" class="btn btn-success btn-sm ">{% if sel.done %} No {% else %} Do {% endif %}</a>
+                            <a href="/deletefpdi/{{sel.fecha}}/{{sel.proyecto}}/{{sel.diametro}}/{{sel.id}}" class="btn btn-danger btn-sm ">De</a>
+                        </td>
+                    </tr> 
+                    {% endfor %}    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
